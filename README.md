@@ -8,6 +8,7 @@ AFS: /afs/sipb/project/hyades/provisioning
  * etcd: scripts to configure and deploy an etcd cluster from scratch
  * upstream: upstream binaries
  * trust: trusted keys
+ * admin: administrative scripts
 
 # Contact
 
