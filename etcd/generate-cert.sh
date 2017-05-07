@@ -3,13 +3,13 @@ set -e
 
 if [ "X$1" = "X" -o "X$2" = "X" -o "X$3" = "X" -o "X$4" = "X" ]
 then
-	echo "Usage: generate-secrets.sh <HOST> <IP> <CERTDIR> <CADIR>" 1>&2
+	echo "Usage: generate-cert.sh <HOST> <IP> <CERTDIR> <CADIR>" 1>&2
 	exit 1
 fi
 
 set -u
 
-echo "generating secrets for $1 ip $2 in certdir $2 with cadir $4"
+echo "generating etcd secrets for $1 ip $2 in certdir $3 with cadir $4"
 
 HOST=$1
 HOST_IP=$2
