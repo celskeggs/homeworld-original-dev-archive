@@ -17,11 +17,14 @@ CERTDIR=$(realpath -e $3)
 
 cd $(dirname $0)
 UPSTREAM=$(pwd)/../upstream/
+TRUST=$(pwd)/../trust/
 
 ssh root@${HOST} systemctl stop flannel || true
 scp ${UPSTREAM}/flanneld root@${HOST}:/usr/lib/hyades/flanneld
 scp launch-flannel.sh root@${HOST}:/usr/lib/hyades/launch-flannel.sh
 scp flannel.service root@${HOST}:/etc/systemd/system/
+ssh root@${HOST} mkdir -p /etc/etcd/
+scp $TRUST/etcd-tls-ca.pem root@${HOST}:/etc/etcd/ca.pem
 scp ${CERTDIR}/flannel-${HOST}.pem root@${HOST}:/etc/hyades/flannel-etcd.pem
 scp ${CERTDIR}/flannel-${HOST}-key.pem root@${HOST}:/etc/hyades/flannel-etcd-key.pem
 scp flannel.conf root@${HOST}:/etc/hyades/flannel.conf

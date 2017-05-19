@@ -20,8 +20,7 @@ UPSTREAM=$(pwd)/../upstream/
 TRUST=$(pwd)/../trust/
 
 ssh root@${HOST} systemctl stop etcd
-scp ${UPSTREAM}/rkt_1.25.0-1_amd64.deb ${UPSTREAM}/coreos-application-signing-key.asc root@${HOST}:/root/
-ssh root@${HOST} "dpkg -i /root/rkt_1.25.0-1_amd64.deb && rkt trust --skip-fingerprint-review --prefix=coreos.com /root/coreos-application-signing-key.asc && mkdir -p /usr/lib/etcd/ && mkdir -p /var/lib/etcd/ && mkdir -p /etc/etcd/"
+ssh root@${HOST} "mkdir -p /usr/lib/etcd/ && mkdir -p /var/lib/etcd/ && mkdir -p /etc/etcd/"
 scp launch-etcd.sh ${UPSTREAM}/etcd-v3.1.7-linux-amd64.aci ${UPSTREAM}/etcd-v3.1.7-linux-amd64.aci.asc root@${HOST}:/usr/lib/etcd/
 scp etcd.service root@${HOST}:/etc/systemd/system/etcd.service
 scp $CONFIG root@${HOST}:/etc/etcd/hyades.conf
