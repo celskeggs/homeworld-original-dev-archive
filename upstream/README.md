@@ -25,6 +25,6 @@ From flanneld GitHub release page (flanneld-amd64 v0.7.1):
 From kubernetes v1.6.2 linked from GitHub changelog page (kubernetes-server-linux-amd64.tar.gz, 016bc4db69a8f90495e82fbe6e5ec9a12e56ecab58a8eb2e5471bf9cab827ad2):
 
     kubelet.gz (extracted from .tar.gz and re-gzipped for space reasons)
-    kube-apiserver.aci (extracted from .tar.gz and converted using docker2aci v0.16.0 from GitHub releases page)
+    kube-apiserver.gz (same)
 
 These aren't as secure of sources as they would optimally be, but it's a start.

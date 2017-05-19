@@ -57,4 +57,7 @@ ETCDOPT="$ETCDOPT --cert-file=${TLS_MOUNTPOINT}/etcd.pem --key-file=${TLS_MOUNTP
 # server-to-server TLS certs
 ETCDOPT="$ETCDOPT --peer-cert-file=${TLS_MOUNTPOINT}/etcd.pem --peer-key-file=${TLS_MOUNTPOINT}/etcd-key.pem --peer-client-cert-auth --peer-trusted-ca-file=${TLS_MOUNTPOINT}/ca.pem"
 
+# ONLY FOR DEBUGGING
+# ETCDOPT="$ETCDOPT --debug --log-output=stderr --enable-pprof"
+
 /usr/bin/rkt run $HOSTOPT /usr/lib/etcd/etcd-v3.1.7-linux-amd64.aci -- $ETCDOPT

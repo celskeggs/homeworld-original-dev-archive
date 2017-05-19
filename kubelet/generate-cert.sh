@@ -34,6 +34,7 @@ basicConstraints = CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 subjectAltName = @alt_names
 [alt_names]
+DNS.1 = ${HOST}
 IP.1 = ${HOST_IP}
 ENDCONFIG
 

@@ -28,8 +28,14 @@ EOCONFIG
 KUBEOPT=""
 # just use one API server for now -- TODO: BETTER HIGH-AVAILABILITY
 KUBEOPT="$KUBEOPT --kubeconfig=/etc/hyades/kubeconfig --require-kubeconfig"
-# don't register as schedulable
-KUBEOPT="$KUBEOPT --register-schedulable=false"
+if [ "x$SCHEDULABLE" = "xtrue" ]
+then
+	# register as schedulable (i.e. for a worker node)
+	KUBEOPT="$KUBEOPT --register-schedulable=true"
+else
+	# don't register as schedulable (i.e. for a master node)
+	KUBEOPT="$KUBEOPT --register-schedulable=false"
+fi
 # turn off anonymous authentication
 KUBEOPT="$KUBEOPT --anonymous-auth=false"
 # add kubelet auth certs
