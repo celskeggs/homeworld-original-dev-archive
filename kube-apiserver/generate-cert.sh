@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-if [ "X$1" = "X" -o "X$2" = "X" -o "X$3" = "X" -o "X$4" = "X" -o "X$5" = "X" ]
+if [ "X$1" = "X" -o "X$2" = "X" -o "X$3" = "X" -o "X$4" = "X" -o "X$5" = "X" -o "X$6" = "X" ]
 then
-	echo "Usage: generate-cert.sh <HOST> <IP> <CERTDIR> <KUBE-CADIR> <ETCD-CADIR>" 1>&2
+	echo "Usage: generate-cert.sh <HOST> <IP> <SERVICE-IP> <CERTDIR> <KUBE-CADIR> <ETCD-CADIR>" 1>&2
 	exit 1
 fi
 
@@ -13,9 +13,10 @@ echo "generating apiserver secrets for $1 ip $2 in certdir $3 with cadir $4"
 
 HOST=$1
 HOST_IP=$2
-CERTDIR=$(realpath -e $3)
-KCADIR=$4
-ECADIR=$5
+SERVICE_IP=$3
+CERTDIR=$(realpath -e $4)
+KCADIR=$5
+ECADIR=$6
 
 KEY_SIZE=2048
 DAYS=365
@@ -39,6 +40,7 @@ subjectAltName = @alt_names
 [alt_names]
 DNS.1 = ${HOST}
 IP.1 = ${HOST_IP}
+IP.2 = ${SERVICE_IP}
 ENDCONFIG
 
 # TODO: generate keys on the target system and protect CA better
