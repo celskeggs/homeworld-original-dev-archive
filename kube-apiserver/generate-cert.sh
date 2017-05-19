@@ -50,3 +50,5 @@ openssl req -new -key ${PRIVATE_KEY} -out ${REQUEST} -subj="/CN=kube-apiserver" 
 openssl req -new -key ${PRIVATE_KEY} -out ${ETCD_REQUEST} -subj="/CN=kube-apiserver-for-etcd" -config ${OPENSSL_CONF}
 openssl x509 -req -in ${REQUEST} -CA ${KCADIR}/ca.pem -CAkey ${KCADIR}/ca-key.pem -CAcreateserial -out ${CERTIFICATE} -days ${DAYS} -extensions v3_req -extfile ${OPENSSL_CONF}
 openssl x509 -req -in ${ETCD_REQUEST} -CA ${ECADIR}/ca-client.pem -CAkey ${ECADIR}/ca-client-key.pem -CAcreateserial -out ${ETCD_CERTIFICATE} -days ${DAYS} -extensions v3_req -extfile ${OPENSSL_CONF}
+
+cp ${KCADIR}/serviceaccount.key ${CERTDIR}/serviceaccount.key

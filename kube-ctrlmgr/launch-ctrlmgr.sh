@@ -13,6 +13,10 @@ SRVOPT="$SRVOPT --cluster-name=hyades"
 
 SRVOPT="$SRVOPT --leader-elect"
 
+# granting service tokens
+SRVOPT="$SRVOPT --service-account-private-key-file=/etc/hyades/serviceaccount.key"
+SRVOPT="$SRVOPT --root-ca-file=/etc/hyades/kubeca.pem"
+
 # FOR DEBUGGING
 # SRVOPT="-v4 $SRVOPT"
 

@@ -27,7 +27,8 @@ scp apiserver.service root@${HOST}:/etc/systemd/system/
 scp ${CERTDIR}/kubeapi-${HOST}.pem root@${HOST}:/etc/hyades/kubeapi.pem
 scp ${CERTDIR}/kubeapi-${HOST}-etcd.pem root@${HOST}:/etc/hyades/kubeapi-etcd.pem
 scp ${CERTDIR}/kubeapi-${HOST}-key.pem root@${HOST}:/etc/hyades/kubeapi-key.pem
+scp ${CERTDIR}/serviceaccount.key root@${HOST}:/etc/hyades/serviceaccount.key
 scp kubeapi.conf root@${HOST}:/etc/hyades/kubeapi.conf
-ssh root@${HOST} "chmod 600 /etc/hyades/kubeapi-key.pem && systemctl stop apiserver && systemctl daemon-reload && systemctl start apiserver && systemctl enable apiserver"
+ssh root@${HOST} "chmod 600 /etc/hyades/kubeapi-key.pem && chmod 600 /etc/hyades/serviceaccount.key && systemctl stop apiserver && systemctl daemon-reload && systemctl start apiserver && systemctl enable apiserver"
 
 echo "kube-apiserver should be ready to run"

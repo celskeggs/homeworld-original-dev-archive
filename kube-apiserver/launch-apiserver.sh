@@ -41,6 +41,8 @@ SRVOPT="$SRVOPT --insecure-port=0"
 SRVOPT="$SRVOPT --kubelet-certificate-authority /etc/hyades/kubeca.pem"
 # authenticate us to kubelet
 SRVOPT="$SRVOPT --kubelet-client-certificate=/etc/hyades/kubeapi.pem --kubelet-client-key=/etc/hyades/kubeapi-key.pem"
+# let controller manager's service tokens work for us
+SRVOPT="$SRVOPT --service-account-key-file=/etc/hyades/serviceaccount.key"
 
 # TODO: this is used by the CoreOS guide. should we use it too?
 # --runtime-config=extensions/v1beta1/networkpolicies=true
