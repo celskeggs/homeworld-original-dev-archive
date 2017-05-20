@@ -10,10 +10,7 @@ tar -xf ${ROOT}/kubernetes-src-v1.6.4.tar.xz
 echo "extracted!"
 export GOPATH=${ROOT}/go
 make
-for binary in hyperkube kubectl kubelet
-do
-	cp _output/local/bin/linux/amd64/$binary ${ROOT}/../binaries/
-done
+cp _output/local/bin/linux/amd64/kubectl ${ROOT}/../binaries/
 cd ${ROOT}
 ./package.sh
 echo "built kubernetes binaries!"
