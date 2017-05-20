@@ -37,8 +37,10 @@ TLS_STORAGE="/etc/etcd/"
 #   ca-client.pem
 #   ca.pem
 
+# our image is stored on disk -- better hope that's safe!
+HOSTOPT="--insecure-options=image"
 # provide data directory for etcd to store persistent data
-HOSTOPT="--volume data-dir,kind=host,source=/var/lib/etcd"
+HOSTOPT="$HOSTOPT --volume data-dir,kind=host,source=/var/lib/etcd"
 # provide directory for etcd TLS certificates
 HOSTOPT="$HOSTOPT --volume etcd-certs,kind=host,readOnly=true,source=${TLS_STORAGE} --mount volume=etcd-certs,target=${TLS_MOUNTPOINT}"
 # bind ports to public interface
@@ -57,7 +59,4 @@ ETCDOPT="$ETCDOPT --cert-file=${TLS_MOUNTPOINT}/etcd.pem --key-file=${TLS_MOUNTP
 # server-to-server TLS certs
 ETCDOPT="$ETCDOPT --peer-cert-file=${TLS_MOUNTPOINT}/etcd.pem --peer-key-file=${TLS_MOUNTPOINT}/etcd-key.pem --peer-client-cert-auth --peer-trusted-ca-file=${TLS_MOUNTPOINT}/ca.pem"
 
-# ONLY FOR DEBUGGING
-# ETCDOPT="$ETCDOPT --debug --log-output=stderr --enable-pprof"
-
-/usr/bin/rkt run $HOSTOPT /usr/lib/etcd/etcd-v3.1.7-linux-amd64.aci -- $ETCDOPT
+/usr/bin/rkt run $HOSTOPT /usr/lib/etcd/etcd-3.1.7-linux-amd64.aci -- $ETCDOPT

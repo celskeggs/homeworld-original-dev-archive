@@ -16,12 +16,12 @@ CONFIG=$(realpath -e $2)
 CERTDIR=$(realpath -e $3)
 
 cd $(dirname $0)
-UPSTREAM=$(pwd)/../upstream/
+BINARIES=$(pwd)/../binaries/
 TRUST=$(pwd)/../trust/
 
 ssh root@${HOST} systemctl stop etcd
 ssh root@${HOST} "mkdir -p /usr/lib/etcd/ && mkdir -p /var/lib/etcd/ && mkdir -p /etc/etcd/"
-scp launch-etcd.sh ${UPSTREAM}/etcd-v3.1.7-linux-amd64.aci ${UPSTREAM}/etcd-v3.1.7-linux-amd64.aci.asc root@${HOST}:/usr/lib/etcd/
+scp launch-etcd.sh ${BINARIES}/etcd-3.1.7-linux-amd64.aci root@${HOST}:/usr/lib/etcd/
 scp etcd.service root@${HOST}:/etc/systemd/system/etcd.service
 scp $CONFIG root@${HOST}:/etc/etcd/hyades.conf
 scp $TRUST/etcd-tls-ca.pem root@${HOST}:/etc/etcd/ca.pem
