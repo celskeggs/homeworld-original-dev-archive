@@ -1,0 +1,15 @@
+for etcd:
+	upload image (in a package, maybe?)
+
+overall:
+	create and install package of deployment folder
+	run start-services.sh
+
+
+document process:
+ * generate configuration
+ * deploy configurations
+ * generate certificate scripts
+ * run certificate scripts
+ * install packages
+ * someting something start-services.sh
