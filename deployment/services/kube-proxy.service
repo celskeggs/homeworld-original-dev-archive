@@ -1,7 +1,7 @@
 [Unit]
 Description=Hyades Kubernetes proxy
 Requires=network-online.target
-After=network-online.target
+After=network-online.target kubelet.service
 
 [Service]
 ExecStart=/usr/lib/hyades/launch-proxy.sh

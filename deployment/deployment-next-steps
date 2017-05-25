@@ -8,8 +8,8 @@ for flannel:
 	install package
 	include etcdctl in a server package
 
-for kubelet:
-	install package
+for kubelet, kube-proxy:
+	install kubernetes package
 
 overall:
 	create and install package of deployment folder
