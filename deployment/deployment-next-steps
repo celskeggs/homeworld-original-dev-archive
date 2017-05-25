@@ -8,6 +8,9 @@ for flannel:
 	install package
 	include etcdctl in a server package
 
+for kubelet:
+	install package
+
 overall:
 	create and install package of deployment folder
 	run init-flannel.sh just once

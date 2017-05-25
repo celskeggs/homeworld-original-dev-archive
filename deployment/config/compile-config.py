@@ -53,6 +53,8 @@ workers = [(hostname, ip) for ismaster, hostname, ip in nodes if not ismaster]
 config["ETCD_CLUSTER"], config["ETCD_ENDPOINTS"] = generate_etcd_info(nodes)
 
 config["APISERVER_COUNT"] = len(masters)
+print("TODO: use more than one apiserver for direct requests")
+config["APISERVER"] = "https://{ip}:443".format(ip=masters[0][1])
 
 with open(os.path.join(output, cluster_config), "w") as f:
 	f.write("# generated from setup.conf automatically by compile-config.py\n")

@@ -9,5 +9,9 @@ systemctl start etcd
 systemctl enable etcd
 systemctl start flannel
 systemctl enable flannel
+systemctl start rkt-api
+systemctl enable rkt-api
+systemctl start kubelet
+systemctl enable kubelet
 
 echo "services started and enabled!"
