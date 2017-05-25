@@ -1,9 +1,0 @@
-[Unit]
-Description=rkt API service for kubelet
-After=network.target
-
-[Service]
-ExecStart=/usr/bin/rkt api-service
-
-[Install]
-WantedBy=multi-user.target

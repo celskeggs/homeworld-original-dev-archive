@@ -1,15 +1,8 @@
-for rkt:
-	install package
-
-for etcd:
-	upload image (in a package, maybe?)
-
-for flannel:
-	install package
-	include etcdctl in a server package
-
-for kubelet, kube-proxy, kube-apiserver:
-	install kubernetes package
+packages to install:
+	hyades-rkt_1.26.0-1_amd64.deb
+	hyades-etcd_3.1.7-1_amd64.deb
+	hyades-flannel_0.7.1-2_amd64.deb
+	hyades-hyperkube_1.6.4-1_amd64.deb
 
 for kube-apiserver:
 	generate, deploy, and chmod serviceaccount.key (IMPLEMENT shared-key CERTIFICATE DIRECTIVE!)

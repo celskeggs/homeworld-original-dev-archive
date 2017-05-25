@@ -78,7 +78,7 @@ cp $srcdir/*-{install,remove} $workdir/
 #######################
 cd $builddir/target/bin
 fpm -s dir -t deb \
-    -n "rkt" -v "$version" --iteration "$ITERATION" \
+    -n "hyades-rkt" -v "$version" --iteration "$ITERATION" \
     --after-install $workdir/after-install \
     --before-install $workdir/before-install \
 	--after-remove $workdir/after-remove \
