@@ -1,7 +1,11 @@
+for rkt:
+	install package
+
 for etcd:
 	upload image (in a package, maybe?)
 
 for flannel:
+	install package
 	include etcdctl in a server package
 
 overall:
