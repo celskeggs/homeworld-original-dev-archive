@@ -1,0 +1,42 @@
+Configuration:
+
+	/etc/hyades/cluster.conf
+	/etc/hyades/local.conf
+
+Certificate storage:
+
+	/etc/hyades/certs/etcd/
+		etcd-ca.pem
+		etcd-ca-client.pem
+		etcd-self.pem
+		etcd-self-key.pem
+	/etc/hyades/certs/kube/
+		etcd-ca.pem
+		kube-ca.pem
+		local-key.pem
+		etcd-cert.pem
+		kube-cert.pem
+	et cetera?
+
+Binaries (via packages):
+
+	/usr/bin/rkt
+	/usr/bin/flannel
+	/usr/bin/hyperkube
+
+Container images:
+
+	/usr/lib/hyades/images/etcd-3.1.7-linux-amd64.aci
+
+Launchers:
+
+	/usr/lib/hyades/scripts/launch-etcd.sh
+
+Services:
+
+	/etc/systemd/system/*.service
+
+Persistent data:
+
+	/var/lib/etcd/
+

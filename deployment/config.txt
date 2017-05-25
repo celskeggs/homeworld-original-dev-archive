@@ -1,0 +1,95 @@
+[[ OUTDATED SLIGHTLY ]]
+
+Source files:
+
+setup.conf
+
+	DOMAIN=mit.edu
+	CLUSTER_DOMAIN=hyades.local
+	ETCD_TOKEN=hyades-cluster-4
+	CLUSTER_CIDR=10.18.0.0/16
+	SERVICE_CIDR=10.118.0.0/16
+
+	master eggs-benedict 18.181.0.97
+	master huevos-rancheros 18.181.0.104
+	master ole-miss 18.181.0.106
+	worker grilled-cheese 18.181.0.128
+	worker avocado-burger 18.181.0.129
+
+certificates.conf
+
+	authority etcd-ca-server
+	authority etcd-ca-client
+	authority kube-ca
+
+	place-authority master etcd-ca-server /etc/hyades/certs/etcd/etcd-ca.pem
+	place-authority master etcd-ca-client /etc/hyades/certs/etcd/etcd-ca-client.pem
+	place-authority all etcd-ca-server /etc/hyades/certs/kube/etcd-ca.pem
+	place-authority all kube-ca /etc/hyades/certs/kube/kube-ca.pem
+
+	# for etcd
+	private-key master etcd-server-key /etc/hyades/certs/etcd/etcd-self-key.pem
+	certificate master etcd-ca-server etcd-server-key /etc/hyades/certs/etcd/etcd-self.pem
+
+	# for kubernetes
+	private-key all kube-key /etc/hyades/certs/kube/local-key.pem
+	# TODO: etcd client certificates should really only be on the master nodes
+	certificate all etcd-ca-client kube-key /etc/hyades/certs/kube/etcd-cert.pem
+	certificate master kube-ca kube-key /etc/hyades/certs/kube/kube-cert.pem ip:10.118.0.1 dns:kubernetes dns:kubernetes.default dns:kubernetes.default.svc dns:kubernetes.default.svc.hyades.local
+	certificate worker kube-ca kube-key /etc/hyades/certs/kube/kube-cert.pem
+
+Three main files:
+
+/etc/hyades/cluster.conf
+
+	ETCD_TOKEN=hyades-cluster-4
+	ETCD_CLUSTER=eggs-benedict=https://18.181.0.97:2380,huevos-rancheros=https://18.181.0.104:2380,ole-miss=https://18.181.0.106:2380
+	ETCD_ENDPOINTS=https://18.181.0.97:2379,https://18.181.0.104:2379,https://18.181.0.106:2379
+	APISERVER_COUNT=3
+	CLUSTER_DOMAIN=hyades.local
+	CLUSTER_CIDR=10.18.0.0/16
+	SERVICE_CIDR=10.118.0.0/16
+
+/etc/hyades/local.conf
+
+	HOST_NODE=eggs-benedict
+	HOST_DNS=eggs-benedict.mit.edu
+	HOST_IP=18.181.0.97
+	SCHEDULE_WORK=false
+
+certificates.list (like certificates.conf, but expanded by node)
+
+	authority etcd-ca-server
+	# ...
+
+	# place-authority etcd-ca-server master /etc/hyades/certs/etcd/etcd-ca.pem
+	place-authority etcd-ca-server eggs-benedict /etc/hyades/certs/etcd/etcd-ca.pem
+	place-authority etcd-ca-client huevos-rancheros /etc/hyades/certs/etcd/etcd-ca-client.pem
+	place-authority etcd-ca-client ole-miss /etc/hyades/certs/etcd/etcd-ca-client.pem
+	# ...
+
+	# private-key etcd-server-key master /etc/hyades/certs/etcd/etcd-self-key.pem
+	private-key etcd-server-key eggs-benedict /etc/hyades/certs/etcd/etcd-self-key.pem
+	private-key etcd-server-key huevos-rancheros /etc/hyades/certs/etcd/etcd-self-key.pem
+	private-key etcd-server-key ole-miss /etc/hyades/certs/etcd/etcd-self-key.pem
+	# ...
+
+	# certificate kube-ca kube-key master /etc/hyades/certs/kube/kube-cert.pem ip:10.118.0.1 dns:kubernetes dns:kubernetes.default dns:kubernetes.default.svc dns:kubernetes.default.svc.hyades.local
+	certificate kube-ca kube-key eggs-benedict /etc/hyades/certs/kube/kube-cert.pem ip:18.181.0.97 dns:eggs-benedict.mit.edu dns:eggs-benedict ip:10.118.0.1 dns:kubernetes dns:kubernetes.default dns:kubernetes.default.svc dns:kubernetes.default.svc.hyades.local
+	certificate kube-ca kube-key huevos-rancheros /etc/hyades/certs/kube/kube-cert.pem ip:18.181.0.97 dns:huevos-rancheros.mit.edu dns:huevos-rancheros ip:10.118.0.1 dns:kubernetes dns:kubernetes.default dns:kubernetes.default.svc dns:kubernetes.default.svc.hyades.local
+	certificate kube-ca kube-key ole-miss /etc/hyades/certs/kube/kube-cert.pem ip:18.181.0.97 dns:ole-miss.mit.edu dns:ole-miss ip:10.118.0.1 dns:kubernetes dns:kubernetes.default dns:kubernetes.default.svc dns:kubernetes.default.svc.hyades.local
+	# ...
+
+Usage (TODO: implement):
+
+	$ ./compile-config.py setup.conf cluster-config/
+	$ ls cluster-config
+		cluster.conf
+		eggs-benedict.conf
+		huevos-rancheros.conf
+		ole-miss.conf
+		grilled-cheese.conf
+		avocado-burger.conf
+	$ ./activate.sh cluster-config/ eggs-benedict
+
+
