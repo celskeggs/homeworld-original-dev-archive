@@ -7,7 +7,7 @@ source /etc/hyades/local.conf
 TLS_MOUNTPOINT=/etc/hyades/certs/etcd/
 TLS_STORAGE=/etc/hyades/certs/etcd/
 PERSISTENT_DATA=/var/lib/etcd
-ETCD_IMAGE=/usr/lib/hyades/images/etcd-3.1.7-linux-amd64.aci
+ETCD_IMAGE=/usr/lib/hyades/images/etcd-current-linux-amd64.aci
 
 mkdir -p ${PERSISTENT_DATA}
 
