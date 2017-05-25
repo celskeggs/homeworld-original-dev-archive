@@ -15,5 +15,7 @@ systemctl start kubelet
 systemctl enable kubelet
 systemctl start kube-proxy
 systemctl enable kube-proxy
+systemctl start apiserver
+systemctl enable apiserver
 
 echo "services started and enabled!"

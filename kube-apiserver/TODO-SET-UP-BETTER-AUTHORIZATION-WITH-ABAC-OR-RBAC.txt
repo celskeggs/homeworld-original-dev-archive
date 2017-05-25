@@ -1,1 +1,0 @@
-AlwaysAllow is not secure.

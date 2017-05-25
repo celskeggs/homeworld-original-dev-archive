@@ -8,13 +8,18 @@ for flannel:
 	install package
 	include etcdctl in a server package
 
-for kubelet, kube-proxy:
+for kubelet, kube-proxy, kube-apiserver:
 	install kubernetes package
+
+for kube-apiserver:
+	generate, deploy, and chmod serviceaccount.key
+	set up better authorization with abac or rbac (alwaysallow is not secure)
 
 overall:
 	create and install package of deployment folder
 	run init-flannel.sh just once
 	run start-services.sh on each server
+	split start-services.sh up into both a master version and a worker version
 	convert things to be based on containers more
 	look for other TODOs!
 

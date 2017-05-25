@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e -u
 
-source /etc/hyades/kubeapi.conf
+source /etc/hyades/cluster.conf
+source /etc/hyades/local.conf
 
 SRVOPT=""
 
@@ -12,7 +13,7 @@ SRVOPT="$SRVOPT --apiserver-count ${APISERVER_COUNT}"
 # public addresses
 SRVOPT="$SRVOPT --bind-address=0.0.0.0 --advertise-address=${HOST_IP}"
 # IP range
-SRVOPT="$SRVOPT --service-cluster-ip-range ${SERVICE_IPS}"
+SRVOPT="$SRVOPT --service-cluster-ip-range ${SERVICE_CIDR}"
 # use standard HTTPS port for secure port
 SRVOPT="$SRVOPT --secure-port=443"
 # etcd cluster to use
@@ -44,10 +45,4 @@ SRVOPT="$SRVOPT --kubelet-client-certificate=/etc/hyades/kubeapi.pem --kubelet-c
 # let controller manager's service tokens work for us
 SRVOPT="$SRVOPT --service-account-key-file=/etc/hyades/serviceaccount.key"
 
-# TODO: this is used by the CoreOS guide. should we use it too?
-# --runtime-config=extensions/v1beta1/networkpolicies=true
-
-# FOR DEBUGGING
-# SRVOPT="-v4 $SRVOPT"
-
-/usr/lib/hyades/kube-apiserver $SRVOPT
+/usr/bin/hyperkube kube-apiserver $SRVOPT
