@@ -12,7 +12,7 @@ for kubelet, kube-proxy, kube-apiserver:
 	install kubernetes package
 
 for kube-apiserver:
-	generate, deploy, and chmod serviceaccount.key
+	generate, deploy, and chmod serviceaccount.key (IMPLEMENT shared-key CERTIFICATE DIRECTIVE!)
 	set up better authorization with abac or rbac (alwaysallow is not secure)
 
 overall:

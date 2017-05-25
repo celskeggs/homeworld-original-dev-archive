@@ -25,24 +25,24 @@ SRVOPT="$SRVOPT --anonymous-auth=false"
 # various plugins for limitations and protection
 SRVOPT="$SRVOPT --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota,DenyEscalatingExec,SecurityContextDeny"
 # authenticate clients properly
-SRVOPT="$SRVOPT --client-ca-file=/etc/hyades/kubeca.pem"
+SRVOPT="$SRVOPT --client-ca-file=/etc/hyades/certs/kube/kube-ca.pem"
 # do HTTPS properly
-SRVOPT="$SRVOPT --tls-ca-file=/etc/hyades/kubeca.pem --tls-cert-file=/etc/hyades/kubeapi.pem --tls-private-key-file=/etc/hyades/kubeapi-key.pem"
+SRVOPT="$SRVOPT --tls-ca-file=/etc/hyades/certs/kube/kube-ca.pem --tls-cert-file=/etc/hyades/certs/kube/kube-cert.pem --tls-private-key-file=/etc/hyades/certs/kube/local-key.pem"
 # make sure account deletion works
 SRVOPT="$SRVOPT --service-account-lookup"
 # no cloud provider
 SRVOPT="$SRVOPT --cloud-provider="
 # authenticate the etcd cluster to us
-SRVOPT="$SRVOPT --etcd-cafile /etc/etcd/ca.pem"
+SRVOPT="$SRVOPT --etcd-cafile /etc/hyades/certs/kube/etcd-ca.pem"
 # authenticate us to the etcd cluster
-SRVOPT="$SRVOPT --etcd-certfile /etc/hyades/kubeapi-etcd.pem --etcd-keyfile /etc/hyades/kubeapi-key.pem"
+SRVOPT="$SRVOPT --etcd-certfile /etc/hyades/certs/kube/etcd-cert.pem --etcd-keyfile /etc/hyades/certs/kube/local-key.pem"
 # disallow insecure port
 SRVOPT="$SRVOPT --insecure-port=0"
 # authenticate kubelet to us
-SRVOPT="$SRVOPT --kubelet-certificate-authority /etc/hyades/kubeca.pem"
+SRVOPT="$SRVOPT --kubelet-certificate-authority /etc/hyades/certs/kube/kube-ca.pem"
 # authenticate us to kubelet
-SRVOPT="$SRVOPT --kubelet-client-certificate=/etc/hyades/kubeapi.pem --kubelet-client-key=/etc/hyades/kubeapi-key.pem"
+SRVOPT="$SRVOPT --kubelet-client-certificate=/etc/hyades/certs/kube/kube-cert.pem --kubelet-client-key=/etc/hyades/certs/kube/local-key.pem"
 # let controller manager's service tokens work for us
-SRVOPT="$SRVOPT --service-account-key-file=/etc/hyades/serviceaccount.key"
+SRVOPT="$SRVOPT --service-account-key-file=/etc/hyades/certs/kube/serviceaccount.key"
 
-/usr/bin/hyperkube kube-apiserver $SRVOPT
+exec /usr/bin/hyperkube kube-apiserver $SRVOPT

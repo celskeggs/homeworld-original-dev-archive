@@ -17,5 +17,7 @@ systemctl start kube-proxy
 systemctl enable kube-proxy
 systemctl start apiserver
 systemctl enable apiserver
+systemctl start kube-ctrlmgr
+systemctl enable kube-ctrlmgr
 
 echo "services started and enabled!"
