@@ -79,7 +79,7 @@ with open(certificates_in, "r") as fin:
 			line = line.strip()
 			if not line or line[0] == '#':
 				fout.write("\n")
-			elif line.startswith("authority "):
+			elif line.startswith("authority ") or line.startswith("shared-key "):
 				fout.write(line + "\n")
 			else:
 				fout.write("# " + line + "\n")

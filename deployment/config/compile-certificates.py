@@ -15,6 +15,7 @@ AUTHORITY_LIFETIME = 90
 AUTHORITY_KEYSIZE = 2048
 NODE_LIFETIME = 90
 NODE_KEYSIZE = 2048
+SHARED_KEYSIZE = 2048
 
 if os.path.exists(output):
 	for file in os.listdir(output):
@@ -33,6 +34,8 @@ with open(certlist, "r") as f:
 authorities = []
 placements = []
 private_keys = []
+shared_keys = []
+shared_placements = []
 certificates = []
 
 for line in lines:
@@ -46,6 +49,12 @@ for line in lines:
 	elif components[0] == "private-key":
 		assert len(components) == 4
 		private_keys.append(tuple(components[1:]))
+	elif components[0] == "shared-key":
+		assert len(components) == 2
+		shared_keys.append(components[1])
+	elif components[0] == "place-shared":
+		assert len(components) == 4
+		shared_placements.append(tuple(components[1:]))
 	elif components[0] == "certificate":
 		assert len(components) >= 5
 		main = tuple(components[1:5])
@@ -139,6 +148,47 @@ with begin("private-check.sh") as f:
 		f.write("echo '    generating {key} on {host}'\n".format(key=kid, host=host))
 		f.write("if ssh root@{host} \"[ -e {path} ]\"; then echo '    found {key} on {host}'; else echo 'could not find {key} on {host}!'; exit 1; fi\n".format(key=kid, host=host, path=path, keysize=NODE_KEYSIZE))
 	f.write("echo 'found all private keys!'\n")
+
+with begin("shared-gen.sh") as f:
+	f.write("echo 'generating shared keys...'\n")
+	for kid in shared_keys:
+		kfile = "{secretdir}/shared-{key}.key".format(secretdir=secretdir, key=kid)
+		f.write("""# for shared key {key}
+if [ ! -e "{kfile}" ]
+then
+	echo '    generating shared key {key}'
+	openssl genrsa -out {kfile} {keysize}
+	echo '    generated shared key!'
+else
+	echo '    skipping shared key generation for {key}'
+fi
+
+""".format(key=kid, kfile=kfile, keysize=SHARED_KEYSIZE))
+	f.write("echo 'generated all shared keys!'\n")
+
+with begin("shared-check.sh") as f:
+	f.write("echo 'checking shared keys...'\n")
+	for kid in shared_keys:
+		kfile = "{secretdir}/shared-{key}.key".format(secretdir=secretdir, key=kid)
+		f.write("""# for shared key {key}
+if [ ! -e "{kfile}" ]
+then
+	echo 'could not find shared key {key}!'
+	exit 1
+else
+	echo '    found shared key {key}'
+fi
+
+""".format(key=kid, kfile=kfile))
+	f.write("echo 'found all shared keys!'\n")
+
+with begin("shared-upload.sh") as f:
+	f.write("echo 'uploading shared keys...'\n")
+	for host, kid, path in sorted(shared_placements, key=lambda x: x[1]):
+		kfile = "{secretdir}/shared-{key}.key".format(secretdir=secretdir, key=kid)
+		f.write("echo '    uploading {key} to {host}'\n".format(key=kid, host=host))
+		f.write("scp {kfile} root@{host}:{path}\n".format(kfile=kfile, host=host, path=path))
+	f.write("echo 'all shared keys uploaded!'\n")
 
 with begin("certificate-gen-csrs.sh") as f:
 	f.write("echo 'generating csrs...'\n")
