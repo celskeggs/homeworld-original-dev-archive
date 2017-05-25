@@ -19,5 +19,7 @@ systemctl start apiserver
 systemctl enable apiserver
 systemctl start kube-ctrlmgr
 systemctl enable kube-ctrlmgr
+systemctl start kube-scheduler
+systemctl enable kube-scheduler
 
 echo "services started and enabled!"

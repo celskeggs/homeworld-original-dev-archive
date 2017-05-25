@@ -6,7 +6,4 @@ SRVOPT="--kubeconfig=/etc/hyades/kubeconfig"
 
 SRVOPT="$SRVOPT --leader-elect"
 
-# FOR DEBUGGING
-# SRVOPT="-v4 $SRVOPT"
-
-/usr/lib/hyades/kube-scheduler $SRVOPT
+exec /usr/bin/hyperkube kube-scheduler $SRVOPT
