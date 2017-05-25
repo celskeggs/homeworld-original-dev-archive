@@ -1,10 +1,15 @@
 for etcd:
 	upload image (in a package, maybe?)
 
+for flannel:
+	include etcdctl in a server package
+
 overall:
 	create and install package of deployment folder
-	run start-services.sh
-
+	run init-flannel.sh just once
+	run start-services.sh on each server
+	convert things to be based on containers more
+	look for other TODOs!
 
 document process:
  * generate configuration

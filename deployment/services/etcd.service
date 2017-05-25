@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 Slice=machine.slice
-ExecStart=/usr/lib/etcd/launch-etcd.sh
+ExecStart=/usr/lib/hyades/launch-etcd.sh
 KillMode=mixed
 Restart=always
 
