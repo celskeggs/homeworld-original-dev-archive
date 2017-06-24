@@ -9,6 +9,7 @@ for kube-apiserver:
 	set up better authorization with abac or rbac (alwaysallow is not secure)
 
 overall:
+	include ssh setup in this repository
 	run init-flannel.sh just once
 	run start-services.sh on each server
 	split start-services.sh up into both a master version and a worker version
@@ -16,6 +17,7 @@ overall:
 	look for other TODOs!
 
 document process:
+ * setup ssh
  * generate configuration
  * deploy configurations
  * generate certificate scripts

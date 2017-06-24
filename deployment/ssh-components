@@ -1,0 +1,31 @@
+
+authserver:
+	hyades-authserver
+	kerberized netcat
+	user certificate authority key
+	authorized kerberoses
+	keytab
+
+server side:
+	openssh
+	hyades sshd_config
+	user certificate authority pubkey
+	signed ssh certificates
+
+user side:
+	openssh
+	certificate authority validation
+	req-cert
+
+
+installation process for normal servers:
+ * a script that can easily be downloaded
+ * check the script's fingerprint
+ * run it
+ * contacts an admission server (?) to get keys signed
+ * check the printed fingerprint against the admission script
+ * script installs client CA things and sshd configuration
+
+
+auth$ ./admit.sh <hostname> <secretdir>
+(prints instructions for use! kinda...)
