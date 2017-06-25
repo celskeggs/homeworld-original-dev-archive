@@ -1,14 +1,16 @@
 # Hyades Provisioning
 
 Etherpad: http://etherpad.mit.edu/p/hyades-provisioning-todo
+
 AFS: /afs/sipb/project/hyades/provisioning
 
 # Subfolders
 
- * etcd: scripts to configure and deploy an etcd cluster from scratch
- * upstream: upstream binaries
- * trust: trusted keys
- * admin: administrative scripts
+ * auth: authserver
+ * admission: scripts to set up the SSH system
+ * build-etcd, build-flannel, build-kubernetes, build-rkt: building required software components
+ * deployment: deployment code and overview
+ * clustered: code that runs on the cluster
 
 # Repository Security
 
@@ -26,4 +28,3 @@ trusted systems with /root kerberos tickets or other important auth keys.
 # Contact
 
 Current developer: cela. Contact over zephyr (-c hyades) or email @mit.edu.
-

@@ -13,6 +13,7 @@ overall:
 	run start-services.sh on each server
 	split start-services.sh up into both a master version and a worker version
 	convert things to be based on containers more
+	plan software updates
 	look for other TODOs!
 
 document process:
@@ -23,3 +24,4 @@ document process:
  * run certificate scripts
  * install packages
  * someting something start-services.sh
+
