@@ -5,6 +5,7 @@ VERSION=3.1.7
 cd $(dirname $0)
 HERE=$(pwd)
 HYBIN=$(pwd)/../binaries/
+mkdir -p ${HYBIN}
 
 tar -xf v${VERSION}.tar.gz etcd-${VERSION}/
 cd etcd-${VERSION}
