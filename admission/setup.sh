@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e -u
 
-#SSH_DIR=/etc/ssh/
-SSH_DIR=/home/user/testssh/
+SSH_DIR=/etc/ssh/
 
 cat >server-tmp.cert <<EOCERTIFICATE_HERE
 {{SERVER CERTIFICATE}}
@@ -10,9 +9,9 @@ EOCERTIFICATE_HERE
 
 for type in ecdsa ed25519 rsa
 do
-	pub=${SSH_DIR}/ssh_host_${type}.pub
-	certtemp=${SSH_DIR}/ssh_host_${type}-cert.pub.tmp
-	cert=${SSH_DIR}/ssh_host_${type}-cert.pub
+	pub=${SSH_DIR}/ssh_host_${type}_key.pub
+	certtemp=${SSH_DIR}/ssh_host_${type}_cert.tmp
+	cert=${SSH_DIR}/ssh_host_${type}_cert
 	echo "===================== VERIFY WITH ====================="
 	sha256sum ${pub} | cut -d " " -f 1
 	echo "===================== VERIFY WITH ====================="
@@ -38,5 +37,7 @@ mv ${SSH_DIR}/sshd_config.tmp ${SSH_DIR}/sshd_config
 wget -nv --tries=1 --ca-certificate=server-tmp.cert "https://{{SERVER IP}}/finish" -O /dev/null
 
 rm -f server-tmp.cert $0
+
+systemctl restart ssh
 
 echo "Done!"

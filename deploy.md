@@ -19,6 +19,8 @@
 
 (IF YOU ARE REINITIALIZING AN AUTHSERVER, MAKE SURE TO COPY OFF THE KEYTAB AND SSH CA!)
 
+TODO: automate this process better
+
  * Request a keytab from accounts@, if necessary.
  * Provision yourself a Debian Stretch machine. Choose SSH Server and Standard System Utilities.
    * Remove irrelevant things like exim4 if necessary.
@@ -39,6 +41,17 @@
 
  * Run req-cert and see if it works.
 
+TODO: improve cryptographic strength of keytab (see note on sipb page)
+
 ## Initial server setup
 
- * Provision yourself new Debian Stretch machines. Choose SSH Server and Standard System Utilities.
+ * Provision yourself new Debian Stretch machines. Choose SSH Server only.
+ * Launch an admission server from a trusted machine. Copy up the relevant files.
+ * Admit the server according to the instructions. Verify all hashes carefully.
+ * Make sure to add the CA key for the server into your known_hosts.
+
+       @cert-authority eggs-benedict.mit.edu,huevos-rancheros.mit.edu,[...] ssh-rsa ...
+
+ * Confirm that you can ssh into the server as root.
+
+TODO: WORKING HERE...
