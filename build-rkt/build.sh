@@ -4,7 +4,7 @@ set -e -u
 cd $(dirname $0)
 
 rm -rf rkt-1.26.0/
-tar -xf v1.26.0.tar.gz rkt-1.26.0/
+tar -xf rkt-1.26.0.tar.xz rkt-1.26.0/
 
 patch -p0 <rkt.patch
 

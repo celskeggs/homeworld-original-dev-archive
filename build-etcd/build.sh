@@ -7,7 +7,7 @@ HERE=$(pwd)
 HYBIN=$(pwd)/../binaries/
 mkdir -p ${HYBIN}
 
-tar -xf v${VERSION}.tar.gz etcd-${VERSION}/
+tar -xf etcd-${VERSION}.tar.xz etcd-${VERSION}/
 cd etcd-${VERSION}
 ./build
 ../build-aci ${VERSION}

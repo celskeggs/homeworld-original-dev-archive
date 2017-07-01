@@ -6,7 +6,7 @@ rm -rf go/
 mkdir -p go/src/github.com/coreos/
 cd go/src/github.com/coreos/
 echo "extracting..."
-tar -xf ${ROOT}/v0.7.1.tar.xz flannel-0.7.1/
+tar -xf ${ROOT}/flannel-0.7.1.tar.xz flannel-0.7.1/
 echo "extracted!"
 export GOPATH=${ROOT}/go
 mv flannel-0.7.1/ flannel/
