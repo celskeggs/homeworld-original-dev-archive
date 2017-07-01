@@ -7,7 +7,7 @@ source /etc/hyades/local.conf
 # allow verification of etcd certs
 FLANOPT="--etcd-cafile /etc/hyades/certs/kube/etcd-ca.pem"
 # authenticate to etcd servers
-FLANOPT="$FLANOPT --etcd-certfile /etc/hyades/certs/kube/etcd-cert.pem --etcd-keyfile /etc/hyades/certs/kube/local-key.pem
+FLANOPT="$FLANOPT --etcd-certfile /etc/hyades/certs/kube/etcd-cert.pem --etcd-keyfile /etc/hyades/certs/kube/local-key.pem"
 # endpoints
 FLANOPT="$FLANOPT --etcd-endpoints ${ETCD_ENDPOINTS}"
 

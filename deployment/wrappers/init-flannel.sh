@@ -3,7 +3,7 @@ set -e -u
 
 source /etc/hyades/cluster.conf
 
-AUTHOPT="--ca-file /etc/hyades/certs/kube/etcd-ca.pem --cert-file /etc/hyades/certs/kube/etcd-self.pem --key-file /etc/hyades/certs/kube/local-key.pem"
+AUTHOPT="--ca-file /etc/hyades/certs/kube/etcd-ca.pem --cert-file /etc/hyades/certs/kube/etcd-cert.pem --key-file /etc/hyades/certs/kube/local-key.pem"
 
 export ETCDCTL_API=2
 

@@ -56,7 +56,7 @@ KUBEOPT="$KUBEOPT --container-runtime rkt"
 # pod manifests
 KUBEOPT="$KUBEOPT --pod-manifest-path=/etc/hyades/manifests/"
 # DNS
-KUBEOPT="$KUBEOPT --cluster-dns ${CLUSTER_DNS} --cluster-domain ${CLUSTER_DOMAIN}"
+KUBEOPT="$KUBEOPT --cluster-dns ${SERVICE_DNS} --cluster-domain ${CLUSTER_DOMAIN}"
 # experimental options to better enforce env config
 KUBEOPT="$KUBEOPT --experimental-fail-swap-on"
 
